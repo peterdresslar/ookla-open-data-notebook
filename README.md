@@ -2,6 +2,8 @@
 
 This workbook was built by Pacific Broadband and Digital Equity (https://pacificbroadband.org) to explore ookla-open-data speeds specific to the United States Pacific territories. The beginning of the workbook in particular borrows from the tutorials at https://github.com/teamookla/ookla-open-data. Parsing out the data from millions and millions of quarterly speed reports into small slices takes significant time, especially just to read the data into a geopandas dataframe. 
 
+The Ookla data include quadkeys, a geographic organization system described here: (https://learn.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system). Quadkeys can be used to identify specific areas on Earth, and this notebook uses quadkeys to isolate individual test records for a given area. In this case, we have included sample quadkeys for all the United States territories and Hawaii, but other locations with other quadkeys could easily be substituted.
+
 Once that is done, this workbook generates an output geojson file (the format of which could easily be switched) and a data summary to text, like this:
 
 `guam 2022Q3 Stats... Download (mean Mbps) 46.69761086956522 Upload (mean Mbps) 6.610093478260869 Latency (mean ms) 19.080434782608695 Tests 8612 Devices 2908`
