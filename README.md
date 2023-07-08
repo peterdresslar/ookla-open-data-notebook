@@ -14,4 +14,6 @@ Geojson can be uploaded into a variety of systems, including Mapbox:
 
 The repo contains sample data downloaded for various locations in the Pacific. Other locations could easily be processed with the notebook. Conversion of the notebook to an operational service would be straightforward, but the geopandas file loading bottleneck would need to be considered for that work.  
 
-Special thanks to Government of Guam and Coordinator Tyrone Taitano for their support of this work.
+### Citation
+
+Speedtest by Ookla Global Fixed and Mobile Network Performance Maps was accessed on [variable dates] from https://registry.opendata.aws/speedtest-global-performance. Speedtest® by Ookla® Global Fixed and Mobile Network Performance Maps. Based on analysis by Ookla of Speedtest Intelligence® data for [variable period]. Provided by Ookla and accessed [day accessed]. Ookla trademarks used under license and reprinted with permission.
