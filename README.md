@@ -4,7 +4,7 @@ This repo was built by Pacific Broadband and Digital Equity (https://pacificbroa
 
 ## Updates, 2023-07-09
 
-(`ookla-data-quadkey-batcher`) 
+(`ookla_data_quadkey_batcher.py`) 
 
 Major changes in the form of "batchifying" the original notebook mean that we can now grab and process much more data. As a result we are able to generate more statistics, and we have added a facility to save these to a json file (`geodatasets\stats.json`). This file has the following format:
 
@@ -18,9 +18,9 @@ Major changes in the form of "batchifying" the original notebook mean that we ca
 
 We are now processing all islands of Hawaii, most USA island Insular Areas, and the Azore islands for reference.
 
-We have run `ookla-data-quadkey-batcher` on Python 3 on a fairly basic Windows machine successfully. With limited memory, processing can take a few hours at least.
+We have run `ookla_data_quadkey_batcher.py` on Python 3 on a fairly basic Windows machine successfully. With limited memory, processing can take a few hours at least.
 
-We also added `ookla-test-data-creator.py` to help aid development by simulating an ookla-open-data file with just 100 tiles. It is much faster to develop and test with.
+We also added `ookla_test_data_creator.py` to help aid development by simulating an ookla-open-data file with just 100 tiles. It is much faster to develop and test with.
 
 ## The Notebook
 
