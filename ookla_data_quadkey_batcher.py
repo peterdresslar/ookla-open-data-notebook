@@ -19,8 +19,20 @@
 #           tests
 #           devices
 
+# To run this script from the command line, use the following command:
+# python ookla_data_quadkey_batcher.py
+# Use the following arguments to specify the start and end quarters to process:
+# --start_year (e.g., 2019)
+# --start_quarter (e.g., 1)
+# --end_year (e.g., 2020)
+# --end_quarter (e.g., 2)
+# Or you can use the defaults, which will process all available data based upon today's date.
+# Note that this script assumes Python 3.6 or higher.
+
 import geopandas as gp
 import numpy as np
+
+import argparse
 
 import json
 from datetime import datetime
@@ -38,21 +50,43 @@ class NpEncoder(json.JSONEncoder):
             return obj.tolist()
         return super(NpEncoder, self).default(obj)
 
-# These are constants, the start year and quarter of available Ookla data in the repository.
-ookla_data_start_year = 2019
-ookla_data_start_quarter = 1
-
 # Set this to true if you want to test the script without downloading the Ookla files (but instead use test data produced by ookla-test-data-creator.py)
 testing = False
 
 # Directory where the output files will be saved
 directory = "geojson-datasets"
 
-# Set the years and quarters to process. This could all be paramaterized, yes.
-start_year = ookla_data_start_year
-start_quarter = ookla_data_start_quarter
-end_year = 2023
-end_quarter = 2
+# Set the years and quarters to process. The default is to process all available data using the constant start year and quarter, and the current date.
+# Create the parser
+parser = argparse.ArgumentParser(description="Process Ookla data.")
+
+# These are constants, the start year and quarter of available Ookla data in the repository.
+ookla_data_start_year = 2019
+ookla_data_start_quarter = 1
+
+# Get the current year and quarter
+current_year = datetime.now().year
+current_month = datetime.now().month
+current_quarter = (current_month - 1) // 3 + 1
+
+# Calculate the most recent year and quarter with available data
+most_recent_year = current_year if current_quarter > 1 else current_year - 1
+most_recent_quarter = current_quarter - 1 if current_quarter > 1 else 4
+
+# Add the arguments
+parser.add_argument('--start_year', type=int, default=ookla_data_start_year, help='The start year to process.')
+parser.add_argument('--start_quarter', type=int, default=ookla_data_start_quarter, help='The start quarter to process.')
+parser.add_argument('--end_year', type=int, default=most_recent_year, help='The end year to process.')
+parser.add_argument('--end_quarter', type=int, default=most_recent_quarter, help='The end quarter to process.')
+
+# Parse the arguments
+args = parser.parse_args()
+
+# Use the arguments in your script
+start_year = args.start_year
+start_quarter = args.start_quarter
+end_year = args.end_year
+end_quarter = args.end_quarter
 
 def make_quarters_list() -> list:
     # Create a list of quarters to process
@@ -113,7 +147,7 @@ def main():
         # For each file (for each Quarter) (multiquarter not implemented yet)
         stats.update({quarter_year: {}})
         # Get the file
-        tile_url = get_tile_url("fixed", year, quarter)
+        tile_url = get_tile_url("fixed", year, quarter) # only interested in fixed internet service for now
         print("Downloading ", tile_url)
         # Now we need to read the geodata file from the url. However, if we are just testing, we can read from a local file.
         if testing:
@@ -162,7 +196,7 @@ def main():
         # End for each quarter
 
     #     Write all statistics to new stats file
-    filename = f"{directory}/stats.json"
+    filename = f"stats.json"
     with open(filename, "w") as f:
         json.dump(stats, f, cls=NpEncoder)
     # close file
