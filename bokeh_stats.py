@@ -8,7 +8,7 @@
 import argparse
 import json
 
-from bokeh.models import HoverTool, ColumnDataSource
+from bokeh.models import HoverTool, ColumnDataSource, Label
 from bokeh.palettes import Category10
 from bokeh.plotting import figure, show, output_file
 
@@ -98,20 +98,48 @@ def generate_time_series_plot(data, title, y_axis_column, x_axis_label, y_axis_l
     return p
 
 def plot_3(df, no_hawaii=False):
+    # File names should indicate whether hawaii is visible
+    if no_hawaii:
+        stub = "hi-state-only"
+    else:
+        stub = "all"
 
-    # Assuming 'data' is your DataFrame
+    # For the single dataframe, df:
     plot_download = generate_time_series_plot(df, "Internet Download Speed Over Time", "download", "Date", "Download Speed (Mbps)", no_hawaii)
     plot_upload = generate_time_series_plot(df, "Internet Upload Speed Over Time", "upload", "Date", "Upload Speed (Mbps)", no_hawaii)
     plot_latency = generate_time_series_plot(df, "Internet Latency Over Time", "latency", "Date", "Latency (ms)", no_hawaii)
 
+    # Add a caption for each plot. Note each Label can only belong to one plot.
+    dcaption = Label(x=715, y=0, x_units='screen', y_units='screen',
+                 text=' Data: Ookla, Inc. Analysis: Peter Dresslar, PBDE ', text_font_size='9pt',
+                 border_line_color='black', border_line_alpha=1.0,
+                 background_fill_color='white', background_fill_alpha=1.0,
+                 text_align='right')
+
+    ucaption = Label(x=715, y=0, x_units='screen', y_units='screen',
+                 text=' Data: Ookla, Inc. Analysis: Peter Dresslar, PBDE ', text_font_size='9pt',
+                 border_line_color='black', border_line_alpha=1.0,
+                 background_fill_color='white', background_fill_alpha=1.0,
+                 text_align='right')
+
+    lcaption = Label(x=715, y=0, x_units='screen', y_units='screen',
+                 text=' Data: Ookla, Inc. Analysis: Peter Dresslar, PBDE ', text_font_size='9pt',
+                 border_line_color='black', border_line_alpha=1.0,
+                 background_fill_color='white', background_fill_alpha=1.0,
+                 text_align='right')
+
+    plot_download.add_layout(dcaption)
+    plot_upload.add_layout(ucaption)
+    plot_latency.add_layout(lcaption)
+
     # Output the plots to HTML files
-    output_file("internet_download_speeds.html")
+    output_file("internet_download_speeds-" + stub + ".html")
     show(plot_download)
 
-    output_file("internet_upload_speeds.html")
+    output_file("internet_upload_speeds-" + stub + ".html")
     show(plot_upload)
 
-    output_file("internet_latency.html")
+    output_file("internet_latency-" + stub + ".html")
     show(plot_latency)
 
 if __name__ == "__main__":
