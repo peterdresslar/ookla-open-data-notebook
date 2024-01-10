@@ -27,15 +27,16 @@
 # --end_year (e.g., 2020)
 # --end_quarter (e.g., 2)
 # Or you can use the defaults, which will process all available data based upon today's date.
+# There are a couple of other arguments that are mostly for testing purposes; see the code below for details.
 # Note that this script assumes Python 3.6 or higher.
+
+import argparse
+import json
+import os
+from datetime import datetime
 
 import geopandas as gp
 import numpy as np
-
-import argparse
-
-import json
-from datetime import datetime
 
 # Create a quick numpy encoder so we can serialize our statistics to a file
 # See: https://stackoverflow.com/a/57915246
@@ -50,8 +51,7 @@ class NpEncoder(json.JSONEncoder):
             return obj.tolist()
         return super(NpEncoder, self).default(obj)
 
-# Set this to true if you want to test the script without downloading the Ookla files (but instead use test data produced by ookla-test-data-creator.py)
-testing = False
+
 
 # Directory where the output files will be saved
 directory = "geojson-datasets"
@@ -78,6 +78,8 @@ parser.add_argument('--start_year', type=int, default=ookla_data_start_year, hel
 parser.add_argument('--start_quarter', type=int, default=ookla_data_start_quarter, help='The start quarter to process.')
 parser.add_argument('--end_year', type=int, default=most_recent_year, help='The end year to process.')
 parser.add_argument('--end_quarter', type=int, default=most_recent_quarter, help='The end quarter to process.')
+parser.add_argument('--preserve-stats', type=bool, default=True, help='Preserve existing stats.json file.')
+parser.add_argument('--testing', action='store_true', help='Use test data instead of Ookla data.')
 
 # Parse the arguments
 args = parser.parse_args()
@@ -87,6 +89,18 @@ start_year = args.start_year
 start_quarter = args.start_quarter
 end_year = args.end_year
 end_quarter = args.end_quarter
+
+# Set the testing flag
+testing = args.testing
+
+# If preserve-stats is True and stats.json exists, load its contents into stats
+if args.preserve_stats and os.path.exists('stats.json'):
+    with open('stats.json', 'r') as f:
+        stats = json.load(f)
+    print(f"Loaded stats for {len(stats)} quarters.")
+# Otherwise, initialize stats as an empty dictionary
+else:
+    stats = {}
 
 def make_quarters_list() -> list:
     # Create a list of quarters to process
