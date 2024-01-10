@@ -28,7 +28,7 @@
 # --end_quarter (e.g., 2)
 # Or you can use the defaults, which will process all available data based upon today's date.
 # There are a couple of other arguments that are mostly for testing purposes; see the code below for details.
-# Note that this script assumes Python 3.6 or higher.
+# Note that this script assumes Python 3.6 or higher. Before running this script, you will need to install geopandas and numpy.
 
 import argparse
 import json
