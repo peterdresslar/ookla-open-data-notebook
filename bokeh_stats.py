@@ -14,6 +14,9 @@ from bokeh.plotting import figure, show, output_file
 
 import pandas as pd
 
+# data-plots directory, where the output files will be saved
+output_path = "data-plots"
+
 def generate_time_series_plot(data, title, y_axis_column, x_axis_label, y_axis_label, no_hawaii):
     # Define color groups
     color_groups = {
@@ -132,14 +135,14 @@ def plot_3(df, no_hawaii=False):
     plot_upload.add_layout(ucaption)
     plot_latency.add_layout(lcaption)
 
-    # Output the plots to HTML files
-    output_file("internet_download_speeds-" + stub + ".html")
+    # Output the plots to HTML files, using our output_path
+    output_file(output_path + "/internet_download_speeds-" + stub + ".html")
     show(plot_download)
 
-    output_file("internet_upload_speeds-" + stub + ".html")
+    output_file(output_path + "/internet_upload_speeds-" + stub + ".html")
     show(plot_upload)
 
-    output_file("internet_latency-" + stub + ".html")
+    output_file(output_path + "/internet_latency-" + stub + ".html")
     show(plot_latency)
 
 if __name__ == "__main__":
