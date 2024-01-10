@@ -32,7 +32,7 @@ def generate_time_series_plot(data, title, y_axis_column, x_axis_label, y_axis_l
     'cnmi': 'micronesia',
     'am-samoa': 'micronesia',
     'palau-all': 'micronesia',
-    'fsm': 'micronesia',
+    'fsm-all': 'micronesia',
     'usvi': 'carribean',
     'pr': 'carribean',
     'oahu': 'hawaii',
@@ -54,7 +54,7 @@ def generate_time_series_plot(data, title, y_axis_column, x_axis_label, y_axis_l
     'cnmi': 'micronesia',
     'am-samoa': 'micronesia',
     'palau-all': 'micronesia',
-    'fsm': 'micronesia',
+    'fsm-all': 'micronesia',
     'usvi': 'carribean',
     'pr': 'carribean',
     'hawaii-state': 'hawaii',
@@ -140,7 +140,7 @@ if __name__ == "__main__":
             rows.append([pd.to_datetime(quarter), location, values['download'], values['upload'], values['latency']])
     
     df = pd.DataFrame(rows, columns=['date', 'location', 'download', 'upload', 'latency'])
-    print(df.head())
+    print(df.head(20))
 
     # Now plot the three timeseries
     plot_3(df, no_hawaii_islands)
