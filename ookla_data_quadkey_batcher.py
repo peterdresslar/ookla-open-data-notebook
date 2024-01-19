@@ -6,7 +6,6 @@
 # Locations are defined for our purpose their quadkeys (more info here: https://docs.microsoft.com/en-us/bingmaps/articles/bing-maps-tile-system).
 # We are focused on American islands and insular areas (territories) in this script, but it would be straightforward to modify this script to process other areas.
 # Our locations are defined in the file island_quadkeys.json.
-# For this script, we focus only on fixed internet service. It would be straightforward to modify this script to process mobile data.
 #
 # This script processes large files, and geopandas is memory intensive. Expect processing to take many minutes per file in most desktop environments.
 
@@ -27,6 +26,8 @@
 # --end_year (e.g., 2020)
 # --end_quarter (e.g., 2)
 # Or you can use the defaults, which will process all available data based upon today's date.
+# You can also specify whether to process mobile or fixed internet service data.
+# --mobile will process mobile data, otherwise the script will process fixed internet service data.
 # There are a couple of other arguments that are mostly for testing purposes; see the code below for details.
 # Note that this script assumes Python 3.6 or higher. Before running this script, you will need to install geopandas and numpy.
 
@@ -50,7 +51,6 @@ class NpEncoder(json.JSONEncoder):
         if isinstance(obj, np.ndarray):
             return obj.tolist()
         return super(NpEncoder, self).default(obj)
-
 
 
 # Directory where the output files will be saved
@@ -78,17 +78,19 @@ parser.add_argument('--start_year', type=int, default=ookla_data_start_year, hel
 parser.add_argument('--start_quarter', type=int, default=ookla_data_start_quarter, help='The start quarter to process.')
 parser.add_argument('--end_year', type=int, default=most_recent_year, help='The end year to process.')
 parser.add_argument('--end_quarter', type=int, default=most_recent_quarter, help='The end quarter to process.')
+parser.add_argument('--mobile', action='store_true', help='Process mobile data instead of fixed internet service.')
 parser.add_argument('--preserve-stats', type=bool, default=True, help='Preserve existing stats.json file.')
 parser.add_argument('--testing', action='store_true', help='Use test data instead of Ookla data.')
 
 # Parse the arguments
 args = parser.parse_args()
 
-# Use the arguments in your script
+# Some args are constants
 start_year = args.start_year
 start_quarter = args.start_quarter
 end_year = args.end_year
 end_quarter = args.end_quarter
+fixed_or_mobile = "mobile" if args.mobile else "fixed"
 
 # Set the testing flag
 testing = args.testing
@@ -102,6 +104,7 @@ if args.preserve_stats and os.path.exists('stats.json'):
 else:
     stats = {}
 
+
 def make_quarters_list() -> list:
     # Create a list of quarters to process
     quarters = []
@@ -113,6 +116,7 @@ def make_quarters_list() -> list:
                 continue
             quarters.append((year, q))
     return quarters
+
 
 def read_quadkeys() -> dict:
     # Read the list of territories from the file island_quadkeys.json
@@ -161,7 +165,7 @@ def main():
         # For each file (for each Quarter) (multiquarter not implemented yet)
         stats.update({quarter_year: {}})
         # Get the file
-        tile_url = get_tile_url("fixed", year, quarter) # only interested in fixed internet service for now
+        tile_url = get_tile_url(fixed_or_mobile, year, quarter) # all set by args
         print("Downloading ", tile_url)
         # Now we need to read the geodata file from the url. However, if we are just testing, we can read from a local file.
         if testing:
@@ -200,7 +204,7 @@ def main():
             )
             #     Write location_tiles to new file in geojson-datasets.
             #     Filename should be {location}_ookla_{year}Q{quarter}.geojson
-            geojson_filename = f"{directory}/{location}_ookla_{year}Q{quarter}.geojson"
+            geojson_filename = f"{directory}/{fixed_or_mobile}/{location}_ookla_{year}Q{quarter}.geojson"
             location_tiles.to_file(geojson_filename, driver="GeoJSON")
             # End for each location
         # Calculate processing time
