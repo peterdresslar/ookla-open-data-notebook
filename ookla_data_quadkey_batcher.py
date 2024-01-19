@@ -39,6 +39,7 @@ from datetime import datetime
 import geopandas as gp
 import numpy as np
 
+
 # Create a quick numpy encoder so we can serialize our statistics to a file
 # See: https://stackoverflow.com/a/57915246
 # Todo move to a utils file
@@ -74,13 +75,41 @@ most_recent_year = current_year if current_quarter > 1 else current_year - 1
 most_recent_quarter = current_quarter - 1 if current_quarter > 1 else 4
 
 # Add the arguments
-parser.add_argument('--start_year', type=int, default=ookla_data_start_year, help='The start year to process.')
-parser.add_argument('--start_quarter', type=int, default=ookla_data_start_quarter, help='The start quarter to process.')
-parser.add_argument('--end_year', type=int, default=most_recent_year, help='The end year to process.')
-parser.add_argument('--end_quarter', type=int, default=most_recent_quarter, help='The end quarter to process.')
-parser.add_argument('--mobile', action='store_true', help='Process mobile data instead of fixed internet service.')
-parser.add_argument('--preserve-stats', type=bool, default=True, help='Preserve existing stats.json file.')
-parser.add_argument('--testing', action='store_true', help='Use test data instead of Ookla data.')
+parser.add_argument(
+    "--start_year",
+    type=int,
+    default=ookla_data_start_year,
+    help="The start year to process.",
+)
+parser.add_argument(
+    "--start_quarter",
+    type=int,
+    default=ookla_data_start_quarter,
+    help="The start quarter to process.",
+)
+parser.add_argument(
+    "--end_year", type=int, default=most_recent_year, help="The end year to process."
+)
+parser.add_argument(
+    "--end_quarter",
+    type=int,
+    default=most_recent_quarter,
+    help="The end quarter to process.",
+)
+parser.add_argument(
+    "--mobile",
+    action="store_true",
+    help="Process mobile data instead of fixed internet service.",
+)
+parser.add_argument(
+    "--preserve-stats",
+    type=bool,
+    default=True,
+    help="Preserve existing stats.json file.",
+)
+parser.add_argument(
+    "--testing", action="store_true", help="Use test data instead of Ookla data."
+)
 
 # Parse the arguments
 args = parser.parse_args()
@@ -96,8 +125,8 @@ fixed_or_mobile = "mobile" if args.mobile else "fixed"
 testing = args.testing
 
 # If preserve-stats is True and stats.json exists, load its contents into stats
-if args.preserve_stats and os.path.exists('stats.json'):
-    with open('stats.json', 'r') as f:
+if args.preserve_stats and os.path.exists("stats.json"):
+    with open("stats.json", "r") as f:
         stats = json.load(f)
     print(f"Loaded stats for {len(stats)} quarters.")
 # Otherwise, initialize stats as an empty dictionary
@@ -158,14 +187,14 @@ def main():
     # Everything is initialized, now we can start processing
     # For each quarter
     for year, quarter in quarters:
-        #Save start time to calculate processing time
+        # Save start time to calculate processing time
         start_time = datetime.now()
         quarter_year = str(year) + "Q" + str(quarter)
         print("Processing quarter", quarter_year)
         # For each file (for each Quarter) (multiquarter not implemented yet)
         stats.update({quarter_year: {}})
         # Get the file
-        tile_url = get_tile_url(fixed_or_mobile, year, quarter) # all set by args
+        tile_url = get_tile_url(fixed_or_mobile, year, quarter)  # all set by args
         print("Downloading ", tile_url)
         # Now we need to read the geodata file from the url. However, if we are just testing, we can read from a local file.
         if testing:
