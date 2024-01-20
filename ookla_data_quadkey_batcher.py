@@ -125,13 +125,15 @@ end_year = args.end_year if args.end_year else most_recent_year
 end_quarter = args.end_quarter if args.end_quarter else most_recent_quarter
 
 fixed_or_mobile = "mobile" if args.mobile else "fixed"
+# stats filename is stats_fixed.json or stats_mobile.json
+stats_filename = f"stats_{fixed_or_mobile}.json"
 
 # Set the testing flag
 testing = args.testing
 
-# If preserve-stats is True and stats.json exists, load its contents into stats
-if args.preserve_stats and os.path.exists("stats.json"):
-    with open("stats.json", "r") as f:
+# If preserve-stats is True and {stats_filename} exists, load its contents into stats
+if args.preserve_stats and os.path.exists(stats_filename):
+    with open(stats_filename, "r") as f:
         stats = json.load(f)
     print(f"Loaded stats for {len(stats)} quarters.")
 # Otherwise, initialize stats as an empty dictionary
@@ -247,12 +249,9 @@ def main():
         print("Processing time for quarter", quarter_year, "was", processing_time)
         # End for each quarter
 
-    #     Write all statistics to new stats file
-    filename = f"stats.json"
-    with open(filename, "w") as f:
+    #     Write all statistics to the file at stats_filename
+    with open(stats_filename, "w") as f:
         json.dump(stats, f, cls=NpEncoder)
-    # close file
-    f.close()
     # print finished timestamp
     print("Batch finished at", datetime.now())
 
