@@ -115,10 +115,15 @@ parser.add_argument(
 args = parser.parse_args()
 
 # Some args are constants
-start_year = args.start_year
-start_quarter = args.start_quarter
-end_year = args.end_year
-end_quarter = args.end_quarter
+# start_year is args.start_year or ookla_data_start_year
+start_year = args.start_year if args.start_year else ookla_data_start_year
+# start_quarter is args.start_quarter or ookla_data_start_quarter
+start_quarter = args.start_quarter if args.start_quarter else ookla_data_start_quarter
+# end_year is args.end_year or most_recent_year
+end_year = args.end_year if args.end_year else most_recent_year
+# end_quarter is args.end_quarter or most_recent_quarter
+end_quarter = args.end_quarter if args.end_quarter else most_recent_quarter
+
 fixed_or_mobile = "mobile" if args.mobile else "fixed"
 
 # Set the testing flag
