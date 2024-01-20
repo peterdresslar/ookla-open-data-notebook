@@ -50,6 +50,8 @@ def generate_time_series_plot(
         "kahoolawe": "hawaii",
         "hawaii-island": "hawaii",
         "hawaii-state": "hawaii",
+        "anchorage-ak": "us-and-atlantic",
+        "missouri-state": "us-and-atlantic",
         "bozeman-mt": "us-and-atlantic",
         "azores": "us-and-atlantic",
     }
@@ -64,6 +66,8 @@ def generate_time_series_plot(
         "usvi": "carribean",
         "pr": "carribean",
         "hawaii-state": "hawaii",
+        "anchorage-ak": "us-and-atlantic",
+        "missouri-state": "us-and-atlantic",
         "bozeman-mt": "us-and-atlantic",
         "azores": "us-and-atlantic",
     }
@@ -121,17 +125,19 @@ def generate_time_series_plot(
     return p
 
 
-def plot_3(df, no_hawaii=False):
+def plot_3(df, stats_class, no_hawaii=False):
     # File names should indicate whether hawaii is visible
     if no_hawaii:
         stub = "hi-state-only"
     else:
         stub = "all"
 
+    titlecase_stats_class = stats_class.title()
+
     # For the single dataframe, df:
     plot_download = generate_time_series_plot(
         df,
-        "Internet Download Speed Over Time",
+        titlecase_stats_class + " Internet Download Speeds Over Time",
         "download",
         "Date",
         "Download Speed (Mbps)",
@@ -139,14 +145,19 @@ def plot_3(df, no_hawaii=False):
     )
     plot_upload = generate_time_series_plot(
         df,
-        "Internet Upload Speed Over Time",
+        titlecase_stats_class + " Internet Upload Speeds Over Time",
         "upload",
         "Date",
         "Upload Speed (Mbps)",
         no_hawaii,
     )
     plot_latency = generate_time_series_plot(
-        df, "Internet Latency Over Time", "latency", "Date", "Latency (ms)", no_hawaii
+        df,
+        titlecase_stats_class + " Internet Latency Over Time",
+        "latency",
+        "Date",
+        "Latency (ms)",
+        no_hawaii,
     )
 
     # Add a caption for each plot. Note each Label can only belong to one plot.
@@ -197,13 +208,17 @@ def plot_3(df, no_hawaii=False):
     plot_latency.add_layout(lcaption)
 
     # Output the plots to HTML files, using our output_path
-    output_file(output_path + "/internet_download_speeds-" + stub + ".html")
+    output_file(
+        output_path + "/" + stats_class + "-internet_download_speeds-" + stub + ".html"
+    )
     show(plot_download)
 
-    output_file(output_path + "/internet_upload_speeds-" + stub + ".html")
+    output_file(
+        output_path + "/" + stats_class + "-internet_upload_speeds-" + stub + ".html"
+    )
     show(plot_upload)
 
-    output_file(output_path + "/internet_latency-" + stub + ".html")
+    output_file(output_path + "/" + stats_class + "-internet_latency-" + stub + ".html")
     show(plot_latency)
 
 
@@ -217,35 +232,73 @@ if __name__ == "__main__":
         "--no-hawaii-islands", action="store_true", help="Do not plot Hawaii Islands."
     )
 
+    # arg for fixed, mobile, or all
+    parser.add_argument(
+        "--stats_class",
+        default="all",
+        choices=["fixed", "mobile", "all"],
+        help="Plot fixed, mobile, or all data.",
+    )
+
     # Parse the arguments
     args = parser.parse_args()
     no_hawaii_islands = args.no_hawaii_islands
 
+    stats_class = args.stats_class
+
     print(f"Plotting data for Hawaii Islands: {not no_hawaii_islands}")
 
     # Import data from stats.json
-    path = "stats.json"
+    # We will process stats_fixed.json, stats_mobile.json, or both, so we have a bit of control logic...
+    fixed_path = "stats_fixed.json"
+    mobile_path = "stats_mobile.json"
 
-    with open(path, "r") as f:
-        data = json.load(f)
+    if args.stats_class == "all" or args.stats_class == "mobile":
+        with open(mobile_path, "r") as f:
+            data = json.load(f)
 
-    rows = []
-    for quarter, locations in data.items():
-        for location, values in locations.items():
-            rows.append(
-                [
-                    pd.to_datetime(quarter),
-                    location,
-                    values["download"],
-                    values["upload"],
-                    values["latency"],
-                ]
-            )
+        rows = []
+        for quarter, locations in data.items():
+            for location, values in locations.items():
+                rows.append(
+                    [
+                        pd.to_datetime(quarter),
+                        location,
+                        values["download"],
+                        values["upload"],
+                        values["latency"],
+                    ]
+                )
 
-    df = pd.DataFrame(
-        rows, columns=["date", "location", "download", "upload", "latency"]
-    )
-    print(df.head(20))
+        df = pd.DataFrame(
+            rows, columns=["date", "location", "download", "upload", "latency"]
+        )
+        print(df.head(20))
 
-    # Now plot the three timeseries
-    plot_3(df, no_hawaii_islands)
+        # Now plot the three timeseries
+        plot_3(df, "mobile", no_hawaii_islands)
+
+    if args.stats_class == "all" or args.stats_class == "fixed":
+        with open(fixed_path, "r") as f:
+            data = json.load(f)
+
+        rows = []
+        for quarter, locations in data.items():
+            for location, values in locations.items():
+                rows.append(
+                    [
+                        pd.to_datetime(quarter),
+                        location,
+                        values["download"],
+                        values["upload"],
+                        values["latency"],
+                    ]
+                )
+
+        df = pd.DataFrame(
+            rows, columns=["date", "location", "download", "upload", "latency"]
+        )
+        print(df.head(20))
+
+        # Now plot the three timeseries
+        plot_3(df, "fixed", no_hawaii_islands)
