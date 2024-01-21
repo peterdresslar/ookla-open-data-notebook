@@ -1,0 +1,21 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "quadkey": "0223000021021211", "avg_d_kbps": 2523, "avg_u_kbps": 7652, "avg_lat_ms": 111, "tests": 8, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021210332", "avg_d_kbps": 57841, "avg_u_kbps": 24547, "avg_lat_ms": 24, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021210331", "avg_d_kbps": 34832, "avg_u_kbps": 4191, "avg_lat_ms": 26, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021210333", "avg_d_kbps": 86693, "avg_u_kbps": 27890, "avg_lat_ms": 21, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021211202", "avg_d_kbps": 107832, "avg_u_kbps": 49186, "avg_lat_ms": 24, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000020132233", "avg_d_kbps": 34114, "avg_u_kbps": 27452, "avg_lat_ms": 22, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021023030", "avg_d_kbps": 751, "avg_u_kbps": 5095, "avg_lat_ms": 24, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021210303", "avg_d_kbps": 70554, "avg_u_kbps": 21876, "avg_lat_ms": 30, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000020133122", "avg_d_kbps": 86633, "avg_u_kbps": 25852, "avg_lat_ms": 26, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021022023", "avg_d_kbps": 34569, "avg_u_kbps": 1216, "avg_lat_ms": 30, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000020132322", "avg_d_kbps": 40761, "avg_u_kbps": 24711, "avg_lat_ms": 23, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000020133201", "avg_d_kbps": 92261, "avg_u_kbps": 14377, "avg_lat_ms": 24, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000020133133", "avg_d_kbps": 84987, "avg_u_kbps": 61108, "avg_lat_ms": 20, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000020132320", "avg_d_kbps": 18230, "avg_u_kbps": 16733, "avg_lat_ms": 25, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000020133200", "avg_d_kbps": 30900, "avg_u_kbps": 2662, "avg_lat_ms": 24, "tests": 1, "devices": 1 }, "geometry": null }
+]
+}

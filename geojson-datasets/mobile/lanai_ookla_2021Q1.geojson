@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "quadkey": "0223000023123032", "avg_d_kbps": 9373, "avg_u_kbps": 166, "avg_lat_ms": 28, "tests": 1, "devices": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -156.917724609375, 20.822875478868401 ], [ -156.912231445311988, 20.822875478868401 ], [ -156.912231445311988, 20.817741019786499 ], [ -156.917724609375, 20.817741019786499 ], [ -156.917724609375, 20.822875478868401 ] ] ] } },
+{ "type": "Feature", "properties": { "quadkey": "0223000023300102", "avg_d_kbps": 10544, "avg_u_kbps": 5812, "avg_lat_ms": 28, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000023303120", "avg_d_kbps": 53913, "avg_u_kbps": 17229, "avg_lat_ms": 90, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000023010110", "avg_d_kbps": 2797, "avg_u_kbps": 298, "avg_lat_ms": 31, "tests": 1, "devices": 1 }, "geometry": null }
+]
+}

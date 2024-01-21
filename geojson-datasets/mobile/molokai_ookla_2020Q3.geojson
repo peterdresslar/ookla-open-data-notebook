@@ -1,0 +1,17 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "quadkey": "0223000020123012", "avg_d_kbps": 6131, "avg_u_kbps": 548, "avg_lat_ms": 28, "tests": 1, "devices": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -157.269287109375, 21.1613612008072 ], [ -157.263793945311988, 21.1613612008072 ], [ -157.263793945311988, 21.156238366109399 ], [ -157.269287109375, 21.156238366109399 ], [ -157.269287109375, 21.1613612008072 ] ] ] } },
+{ "type": "Feature", "properties": { "quadkey": "0223000020132320", "avg_d_kbps": 6350, "avg_u_kbps": 8984, "avg_lat_ms": 27, "tests": 4, "devices": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -157.21435546875, 21.135745255030599 ], [ -157.208862304688012, 21.135745255030599 ], [ -157.208862304688012, 21.130621534363101 ], [ -157.21435546875, 21.130621534363101 ], [ -157.21435546875, 21.135745255030599 ] ] ] } },
+{ "type": "Feature", "properties": { "quadkey": "0223000021210331", "avg_d_kbps": 60161, "avg_u_kbps": 14086, "avg_lat_ms": 24, "tests": 1, "devices": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -157.022094726561988, 21.0947505331402 ], [ -157.0166015625, 21.0947505331402 ], [ -157.0166015625, 21.089625396733901 ], [ -157.022094726561988, 21.089625396733901 ], [ -157.022094726561988, 21.0947505331402 ] ] ] } },
+{ "type": "Feature", "properties": { "quadkey": "0223000021211220", "avg_d_kbps": 89716, "avg_u_kbps": 37062, "avg_lat_ms": 28, "tests": 1, "devices": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -157.0166015625, 21.0947505331402 ], [ -157.011108398438012, 21.0947505331402 ], [ -157.011108398438012, 21.089625396733901 ], [ -157.0166015625, 21.089625396733901 ], [ -157.0166015625, 21.0947505331402 ] ] ] } },
+{ "type": "Feature", "properties": { "quadkey": "0223000021023132", "avg_d_kbps": 13932, "avg_u_kbps": 6094, "avg_lat_ms": 132, "tests": 1, "devices": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -157.071533203125, 21.151115354148001 ], [ -157.066040039061988, 21.151115354148001 ], [ -157.066040039061988, 21.145992164957899 ], [ -157.071533203125, 21.145992164957899 ], [ -157.071533203125, 21.151115354148001 ] ] ] } },
+{ "type": "Feature", "properties": { "quadkey": "0223000021023030", "avg_d_kbps": 4990, "avg_u_kbps": 6436, "avg_lat_ms": 92, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021213102", "avg_d_kbps": 4817, "avg_u_kbps": 215, "avg_lat_ms": 30, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021211233", "avg_d_kbps": 63866, "avg_u_kbps": 25254, "avg_lat_ms": 26, "tests": 4, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021210332", "avg_d_kbps": 50343, "avg_u_kbps": 13797, "avg_lat_ms": 21, "tests": 1, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021210300", "avg_d_kbps": 15959, "avg_u_kbps": 7769, "avg_lat_ms": 24, "tests": 8, "devices": 1 }, "geometry": null },
+{ "type": "Feature", "properties": { "quadkey": "0223000021021211", "avg_d_kbps": 8015, "avg_u_kbps": 9281, "avg_lat_ms": 23, "tests": 15, "devices": 1 }, "geometry": null }
+]
+}

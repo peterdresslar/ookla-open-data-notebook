@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "quadkey": "0223000023303132", "avg_d_kbps": 29438, "avg_u_kbps": 20124, "avg_lat_ms": 20, "tests": 1, "devices": 1 }, "geometry": { "type": "Polygon", "coordinates": [ [ [ -156.895751953125, 20.740703159270701 ], [ -156.890258789061988, 20.740703159270701 ], [ -156.890258789061988, 20.7355659052186 ], [ -156.895751953125, 20.7355659052186 ], [ -156.895751953125, 20.740703159270701 ] ] ] } }
+]
+}
