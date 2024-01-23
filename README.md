@@ -4,24 +4,20 @@ This repo was built by Pacific Broadband and Digital Equity (https://pacificbroa
 
 ## Updates, 2024-01-20
 
-We mostly have moved past the Jupyter notebook use, to the point where it is somewhat out of date. The "batcher" `ookla_data_quadkey_batcher.py` is where we are doing our primary processing. 
-
-To run the batch processing, you will need python (at least 3.6, although this repo has a commit hook configured to python 3.11.x) installed and accessible through your command line:
+We mostly have moved past the Jupyter notebook use, to the point where it is somewhat out of date. The "batcher" `ookla_data_quadkey_batcher.py` is where we are doing our primary processing. To run the batch, you will need python (at least 3.6, although this repo has a commit hook configured to python 3.11.x) installed and accessible through your command line:
 `python ookla_data_quadkey_batcher.py --[args]`
 
 Use the following arguments to specify the start and end quarters to process:
-`--start_year (e.g., 2019)`
-`--start_quarter (e.g., 1)`
-`--end_year (e.g., 2020)`
-`--end_quarter (e.g., 2)`
+* `--start_year (e.g., 2019)`
+* `--start_quarter (e.g., 1)`
+* `--end_year (e.g., 2020)`
+* `--end_quarter (e.g., 2)`
 
-Also, the data processed will be fixed internet data (as defined by Ookla) unless you specifically ask for mobile as an argument. So, for instance:
+The data processed will be fixed internet data (as defined by Ookla) *unless* you specifically add `--mobile` as an argument. So, for instance:
 
-`python ookla_data_quadkey_batcher.py --start_year 2023 --start_quarter 1 --mobile`
+  `python ookla_data_quadkey_batcher.py --start_year 2023 --start_quarter 1 --mobile`
 
-... will process mobile data into the preset mobile geojson data folder. 
-
-Please see the script for more details.
+... will process mobile data into the preset mobile geojson data folder. Please see the script comments for more details.
 
 We have also added `bokeh` chart production for the generated stats: please see `bokeh_stats.py` for more details.
 
