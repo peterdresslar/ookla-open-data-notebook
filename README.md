@@ -10,10 +10,10 @@ To run the batch processing, you will need python (at least 3.6, although this r
 `python ookla_data_quadkey_batcher.py --[args]`
 
 Use the following arguments to specify the start and end quarters to process:
-# --start_year (e.g., 2019)
-# --start_quarter (e.g., 1)
-# --end_year (e.g., 2020)
-# --end_quarter (e.g., 2)
+`--start_year (e.g., 2019)`
+`--start_quarter (e.g., 1)`
+`--end_year (e.g., 2020)`
+`--end_quarter (e.g., 2)`
 
 Also, the data processed will be fixed internet data (as defined by Ookla) unless you specifically ask for mobile as an argument. So, for instance:
 
